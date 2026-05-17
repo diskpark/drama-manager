@@ -15,6 +15,13 @@
   --txt:#eef0ff;--dim:#5a607a;--dim2:#8890b0;
   --r:10px;--r2:14px;--r3:18px;
   --mono:'Syne',sans-serif;--sans:'Noto Sans KR',sans-serif;
+  /* ── 레이아웃 조절 변수 ── */
+  --col-min:155px;
+  --card-gap:9px;
+  --card-pad:7px;
+  --hdr-pad:16px;
+  --fs-base:1rem;
+  --week-pad:20px 18px;
 }
 html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--sans)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
@@ -25,7 +32,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 #app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
 
 /* ── HEADER ── */
-header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--bd);
+header{display:flex;align-items:center;gap:14px;padding:var(--hdr-pad) 24px;border-bottom:1px solid var(--bd);
   background:rgba(7,8,15,.9);backdrop-filter:blur(16px);position:sticky;top:0;z-index:200}
 .logo-mark{width:38px;height:38px;border-radius:11px;flex-shrink:0;
   background:linear-gradient(135deg,var(--a1),var(--a2));
@@ -53,14 +60,14 @@ header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:
 .btn-icon:hover{border-color:var(--bd2);color:var(--txt)}
 
 /* ── WEEK GRID ── */
-.week-wrap{flex:1;padding:20px 18px;overflow-x:auto}
-.week-grid{display:grid;grid-template-columns:repeat(7,minmax(155px,1fr));gap:9px;min-width:1080px}
+.week-wrap{flex:1;padding:var(--week-pad);overflow-x:auto}
+.week-grid{display:grid;grid-template-columns:repeat(7,minmax(var(--col-min),1fr));gap:var(--card-gap);min-width:1080px}
 .day-col{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);
   display:flex;flex-direction:column;min-height:calc(100vh - 120px)}
 .day-head{padding:11px 11px 9px;border-bottom:1px solid var(--bd);
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:65px;background:var(--s1);border-radius:var(--r2) var(--r2) 0 0;z-index:10}
-.day-name{font-family:var(--mono);font-size:1rem;font-weight:800;letter-spacing:.04em}
+.day-name{font-family:var(--mono);font-size:var(--fs-base);font-weight:800;letter-spacing:.04em}
 .day-count{font-family:var(--mono);font-size:.62rem;color:var(--dim2);background:var(--s3);border-radius:20px;padding:2px 7px}
 .day-col[data-d="월"] .day-name{color:#4f8ef7}
 .day-col[data-d="화"] .day-name{color:#ff9f43}
@@ -69,7 +76,7 @@ header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:
 .day-col[data-d="금"] .day-name{color:#f5c842}
 .day-col[data-d="토"] .day-name{color:#e85d8a}
 .day-col[data-d="일"] .day-name{color:#ff4757}
-.day-body{flex:1;padding:7px;display:flex;flex-direction:column;gap:6px}
+.day-body{flex:1;padding:var(--card-pad);display:flex;flex-direction:column;gap:var(--card-gap)}
 .empty-msg{flex:1;display:flex;align-items:center;justify-content:center;
   color:var(--dim);font-size:.68rem;font-family:var(--mono);
   border:1px dashed var(--bd);border-radius:var(--r);margin:4px 0;padding:16px;text-align:center;line-height:2}
@@ -256,6 +263,28 @@ header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:
   cursor:pointer;white-space:nowrap;transition:background .2s}
 .setup-banner button:hover{background:rgba(245,200,66,.25)}
 
+/* ── LAYOUT MODAL ── */
+.layout-modal .modal{max-width:420px}
+.lm-section{margin-bottom:22px}
+.lm-section h3{font-size:.68rem;color:var(--dim2);font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px}
+.lm-section h3::after{content:'';flex:1;height:1px;background:var(--bd)}
+.lm-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lm-label{font-size:.7rem;color:var(--dim2);font-family:var(--mono);width:110px;flex-shrink:0}
+.lm-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;
+  background:var(--bd2);border-radius:2px;outline:none;cursor:pointer}
+.lm-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;
+  border-radius:50%;background:var(--a1);cursor:pointer;transition:transform .15s}
+.lm-slider::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.lm-val{font-size:.7rem;font-family:var(--mono);color:var(--a1);
+  width:42px;text-align:right;flex-shrink:0}
+.lm-reset{display:flex;justify-content:flex-end;margin-top:4px}
+.btn-lm-reset{background:var(--s2);border:1px solid var(--bd2);color:var(--dim2);
+  padding:6px 14px;border-radius:var(--r);font-size:.72rem;font-family:var(--mono);
+  cursor:pointer;transition:all .2s}
+.btn-lm-reset:hover{border-color:var(--a2);color:var(--a2)}
+
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
@@ -273,7 +302,9 @@ header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:
   <div class="hdr-right">
     <div class="hdr-stat" id="statTotal">0개</div>
     <div class="sync-status syncing" id="syncStatus"><div class="sync-dot"></div><span id="syncText">연결 중</span></div>
+    <button class="btn-icon" onclick="openLayout()" title="레이아웃">⊞</button>
     <button class="btn-icon" onclick="openSettings()" title="설정">⚙️</button>
+    <button class="btn-icon" onclick="uploadSelf()" title="이 파일을 GitHub에 업로드" id="btnUpload" style="display:none">📤</button>
     <button class="btn-add" onclick="openSearch()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="15" height="15"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       추가
@@ -408,6 +439,56 @@ header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:
     <div class="btn-row">
       <button class="btn-cancel" onclick="closeEdit()">취소</button>
       <button class="btn-save" onclick="saveEdit()">💾 저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LAYOUT MODAL ══ -->
+<div class="modal-bg layout-modal" id="layoutModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLayout()">✕</button>
+    <h2>⊞ 레이아웃 설정</h2>
+
+    <div class="lm-section">
+      <h3>컬럼 & 카드</h3>
+      <div class="lm-row">
+        <span class="lm-label">컬럼 최소 너비</span>
+        <input class="lm-slider" type="range" id="slColMin" min="100" max="280" step="5" oninput="applyLayout()">
+        <span class="lm-val" id="valColMin">155px</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-label">카드 간격</span>
+        <input class="lm-slider" type="range" id="slCardGap" min="2" max="24" step="1" oninput="applyLayout()">
+        <span class="lm-val" id="valCardGap">9px</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-label">카드 내부 여백</span>
+        <input class="lm-slider" type="range" id="slCardPad" min="2" max="20" step="1" oninput="applyLayout()">
+        <span class="lm-val" id="valCardPad">7px</span>
+      </div>
+    </div>
+
+    <div class="lm-section">
+      <h3>헤더 & 폰트</h3>
+      <div class="lm-row">
+        <span class="lm-label">헤더 높이</span>
+        <input class="lm-slider" type="range" id="slHdrPad" min="6" max="28" step="1" oninput="applyLayout()">
+        <span class="lm-val" id="valHdrPad">16px</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-label">요일명 크기</span>
+        <input class="lm-slider" type="range" id="slFsBase" min="0.6" max="1.4" step="0.05" oninput="applyLayout()">
+        <span class="lm-val" id="valFsBase">1rem</span>
+      </div>
+      <div class="lm-row">
+        <span class="lm-label">주변 여백</span>
+        <input class="lm-slider" type="range" id="slWeekPad" min="4" max="40" step="2" oninput="applyLayout()">
+        <span class="lm-val" id="valWeekPad">20px</span>
+      </div>
+    </div>
+
+    <div class="lm-reset">
+      <button class="btn-lm-reset" onclick="resetLayout()">↺ 기본값으로 초기화</button>
     </div>
   </div>
 </div>
@@ -843,8 +924,143 @@ function toast(msg) {
   clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'), 2800);
 }
 
-// 모달 외부 클릭
-['searchModal','editModal','settingsModal'].forEach(id => {
+// ══════════════════════════════════════
+//  LAYOUT SETTINGS
+// ══════════════════════════════════════
+const LAYOUT_DEFAULTS = {
+  colMin: 155, cardGap: 9, cardPad: 7,
+  hdrPad: 16, fsBase: 1.0, weekPad: 20
+};
+
+function loadLayout() {
+  const saved = JSON.parse(localStorage.getItem('layout_v1') || '{}');
+  return { ...LAYOUT_DEFAULTS, ...saved };
+}
+
+function applyLayoutVars(l) {
+  const root = document.documentElement.style;
+  root.setProperty('--col-min', l.colMin + 'px');
+  root.setProperty('--card-gap', l.cardGap + 'px');
+  root.setProperty('--card-pad', l.cardPad + 'px');
+  root.setProperty('--hdr-pad', l.hdrPad + 'px');
+  root.setProperty('--fs-base', l.fsBase + 'rem');
+  root.setProperty('--week-pad', l.weekPad + 'px ' + Math.round(l.weekPad * 0.9) + 'px');
+}
+
+function applyLayout() {
+  const l = {
+    colMin:   +document.getElementById('slColMin').value,
+    cardGap:  +document.getElementById('slCardGap').value,
+    cardPad:  +document.getElementById('slCardPad').value,
+    hdrPad:   +document.getElementById('slHdrPad').value,
+    fsBase:   +document.getElementById('slFsBase').value,
+    weekPad:  +document.getElementById('slWeekPad').value,
+  };
+  document.getElementById('valColMin').textContent  = l.colMin + 'px';
+  document.getElementById('valCardGap').textContent = l.cardGap + 'px';
+  document.getElementById('valCardPad').textContent = l.cardPad + 'px';
+  document.getElementById('valHdrPad').textContent  = l.hdrPad + 'px';
+  document.getElementById('valFsBase').textContent  = l.fsBase.toFixed(2) + 'rem';
+  document.getElementById('valWeekPad').textContent = l.weekPad + 'px';
+  applyLayoutVars(l);
+  localStorage.setItem('layout_v1', JSON.stringify(l));
+}
+
+function syncSliders(l) {
+  document.getElementById('slColMin').value  = l.colMin;
+  document.getElementById('slCardGap').value = l.cardGap;
+  document.getElementById('slCardPad').value = l.cardPad;
+  document.getElementById('slHdrPad').value  = l.hdrPad;
+  document.getElementById('slFsBase').value  = l.fsBase;
+  document.getElementById('slWeekPad').value = l.weekPad;
+  document.getElementById('valColMin').textContent  = l.colMin + 'px';
+  document.getElementById('valCardGap').textContent = l.cardGap + 'px';
+  document.getElementById('valCardPad').textContent = l.cardPad + 'px';
+  document.getElementById('valHdrPad').textContent  = l.hdrPad + 'px';
+  document.getElementById('valFsBase').textContent  = l.fsBase.toFixed(2) + 'rem';
+  document.getElementById('valWeekPad').textContent = l.weekPad + 'px';
+}
+
+function openLayout() {
+  syncSliders(loadLayout());
+  document.getElementById('layoutModal').classList.add('open');
+}
+function closeLayout() { document.getElementById('layoutModal').classList.remove('open'); }
+
+function resetLayout() {
+  localStorage.removeItem('layout_v1');
+  const l = { ...LAYOUT_DEFAULTS };
+  syncSliders(l);
+  applyLayoutVars(l);
+  toast('↺ 기본값으로 초기화됐어요');
+}
+
+// ══════════════════════════════════════
+//  SELF UPLOAD TO GITHUB
+// ══════════════════════════════════════
+async function uploadSelf() {
+  if (!cfg('gh_token') || !cfg('gh_repo')) {
+    toast('먼저 ⚙️ 설정에서 GitHub 토큰과 레포를 입력해주세요');
+    openSettings();
+    return;
+  }
+
+  const repo   = cfg('gh_repo');
+  const branch = cfg('gh_branch') || 'main';
+  const btn    = document.getElementById('btnUpload');
+
+  if (!confirm(`📤 현재 index.html 을\n${repo} 에 업로드할까요?\n(기존 파일을 덮어씁니다)`)) return;
+
+  btn.textContent = '⏳';
+  btn.disabled = true;
+
+  try {
+    // 1) 현재 파일의 SHA 가져오기 (덮어쓰기용)
+    const getRes = await fetch(
+      `https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,
+      { headers: ghHeaders() }
+    );
+    let sha = null;
+    if (getRes.ok) {
+      const data = await getRes.json();
+      sha = data.sha;
+    }
+
+    // 2) 현재 페이지 HTML 소스 가져오기
+    const html = document.documentElement.outerHTML;
+    const encoded = btoa(unescape(encodeURIComponent(html)));
+
+    // 3) PUT으로 업로드
+    const body = {
+      message: `Update index.html [${new Date().toLocaleString('ko-KR')}]`,
+      content: encoded,
+      branch
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(
+      `https://api.github.com/repos/${repo}/contents/index.html`,
+      { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) }
+    );
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || putRes.status);
+    }
+
+    btn.textContent = '✅';
+    toast(`✓ ${repo} 에 업로드 완료!`);
+    setTimeout(() => { btn.textContent = '📤'; btn.disabled = false; }, 3000);
+
+  } catch(e) {
+    btn.textContent = '📤';
+    btn.disabled = false;
+    toast('업로드 실패: ' + e.message);
+  }
+}
+
+// 모달 외부 클릭으로 닫기
+['searchModal','editModal','settingsModal','layoutModal'].forEach(id => {
   document.getElementById(id).addEventListener('click', e => {
     if (e.target === e.currentTarget) document.getElementById(id).classList.remove('open');
   });
@@ -854,6 +1070,13 @@ function toast(msg) {
 //  INIT
 // ══════════════════════════════════════
 (function init() {
+  // GitHub Pages 접속일 때만 📤 버튼 숨김, 그 외엔 항상 표시
+  const isGHPages = location.hostname.endsWith('github.io');
+  if (!isGHPages) document.getElementById('btnUpload').style.display = '';
+
+  // 레이아웃 먼저 적용
+  applyLayoutVars(loadLayout());
+
   const hasConfig = cfg('gh_token') && cfg('gh_repo');
   if (!hasConfig) {
     document.getElementById('setupBanner').style.display = 'flex';
@@ -862,7 +1085,6 @@ function toast(msg) {
     return;
   }
   document.getElementById('repoLabel').textContent = cfg('gh_repo');
-  // 로컬 캐시 먼저 표시 (빠른 초기 렌더)
   const cache = localStorage.getItem('dramas_cache');
   if (cache) { try { dramas = JSON.parse(cache); render(); } catch(e){} }
   ghLoad();
